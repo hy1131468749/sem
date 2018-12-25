@@ -146,7 +146,6 @@ export default {
      * @description 初始化设置面包屑导航和标签导航
      */
     this.setTagNavList()
-    alert('http://localhost:8080/home111');
     this.addTag({
       route: this.$store.state.app.homeRoute
     })

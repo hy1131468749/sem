@@ -15,7 +15,6 @@ import parentView from '@/components/parent-view'
  *  beforeCloseName: (-) 设置该字段，则在关闭当前tab页时会去'@/router/before-close.js'里寻找该字段名对应的方法，作为关闭前的钩子函数
  * }
  */
-
 export default [
   {
     path: '/',
@@ -65,19 +64,29 @@ export default [
           icon: 'md-funnel',
           title: '二级-1'
         },
-        component: () => import('@/view/multilevel/level-2-1.vue')
+       component: () => import('@/view/multilevel/level-2-1.vue'),
+      },
+      {
+        path: 'sys_add',
+        name: 'sys_add',
+        meta: {
+          icon: 'md-funnel',
+          title: '字典新增',
+          hideInMenu: true
+        },
+        component: () => import ('@/view/multilevel/level-2-2/add')
       },
       {
         path: 'level_2_2',
         name: 'level_2_2',
+        showAlways: true,
         meta: {
-          access: ['super_admin'],
           icon: 'md-funnel',
+          title: '二级-2',
           showAlways: true,
-          title: '二级-2'
         },
         component: parentView,
-        children: [
+       children: [
           {
             path: 'level_2_2_1',
             name: 'level_2_2_1',

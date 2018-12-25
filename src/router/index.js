@@ -10,7 +10,6 @@ const router = new Router({
   routes,
   mode: 'history',
   mounted () {
-    alert('init route');
   }
 });
 const LOGIN_PAGE_NAME = 'login'

@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     openErrorLoggerPage () {
+      ('11');
       this.$router.push({
         name: 'error_logger_page'
       })

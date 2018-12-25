@@ -10,6 +10,10 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import './index.less'
 import '@/assets/icons/iconfont.css'
+import $ from 'jquery'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap';
+
 // 实际打包时应该不引入mock
 /* eslint-disable */
 // if (process.env.NODE_ENV !== 'production') require('@/mock')
@@ -37,6 +41,7 @@ Vue.prototype.$config = config
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  $,
   router,
   i18n,
   store,
