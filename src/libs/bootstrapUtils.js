@@ -1,20 +1,19 @@
+import global_config from '@/libs/global_config'
 const bootstrapUtils = {};
-bootstrapUtils.initBaseTableConfig = function (url, columns, params) {
+bootstrapUtils.initBaseTableConfig = function (url, columns, getQueryParams) {
   return {
-    url: url,
+    url: global_config.httpUrl + url,
     dataType: 'json',//返回数据格式
     sidePagination: 'server',//分页 server为后端分页 client为前端分页
     contentType: "application/x-www-form-urlencoded",
     pageNumber:1,                       //初始化加载第一页，默认第一页
     pageSize: 10,                       //每页的记录行数（*）
-    pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+    pageList: [1,10, 25, 50, 100],        //可供选择的每页的行数（*）
     queryParams: function (page) {
-      if(!params){
-        params = {};
-      }
+      const params = getQueryParams();
+      console.log(params);
       return Object.assign(params, {
-        pageSize:
-        page.limit,
+        pageSize: page.limit,
         pageNumber: page.offset / page.limit + 1
       });
     },
@@ -45,4 +44,5 @@ bootstrapUtils.initBaseTableConfig = function (url, columns, params) {
 bootstrapUtils.initTable=function (id,tableConfig) {
   return $('#'+id).bootstrapTable(tableConfig);
 }
+
 export default bootstrapUtils;

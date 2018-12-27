@@ -13,7 +13,7 @@ import '@/assets/icons/iconfont.css'
 import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
-
+import global_config from '@/libs/global_config'
 // 实际打包时应该不引入mock
 /* eslint-disable */
 // if (process.env.NODE_ENV !== 'production') require('@/mock')
@@ -45,5 +45,6 @@ new Vue({
   router,
   i18n,
   store,
+  global_config,
   render: h => h(App)
 })

@@ -1,4 +1,4 @@
-import HttpRequest from '@/libs/axios'
+import HttpRequest from '@/libs/axios_base'
 import config from '@/config'
 const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro
 

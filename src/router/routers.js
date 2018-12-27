@@ -65,17 +65,31 @@ export default [
           title: '二级-1'
         },
        component: () => import('@/view/multilevel/level-2-1.vue'),
-      },
-      {
-        path: 'sys_add',
-        name: 'sys_add',
+      },{
+        path: 'add_sysDictionary',
+        name: 'add_sysDictionary',
         meta: {
           icon: 'md-funnel',
           title: '字典新增',
+          notCache: true,
           hideInMenu: true
+          // beforeCloseName: 'before_close_normal'
         },
-        component: () => import ('@/view/multilevel/level-2-2/add')
+        component: () => import ('@/view/multilevel/level-2-2/add_sysDictionary')
       },
+      {
+        path: 'edit_sysDictionary',
+        name: 'edit_sysDictionary',
+        meta: {
+          icon: 'md-funnel',
+          title: '字典修改',
+          notCache: true,
+          hideInMenu: true
+          // beforeCloseName: 'before_close_normal'
+        },
+        component: () => import ('@/view/multilevel/level-2-2/edit_sysDictionary')
+      },
+
       {
         path: 'level_2_2',
         name: 'level_2_2',
