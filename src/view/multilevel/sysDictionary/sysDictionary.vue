@@ -14,7 +14,7 @@
       <div id="toolbar" class="col-md-12" style="margin-top: 20px;">
       <button type="button" class="btn btn-success" @click="add">新增</button>
       <button type="button" class="btn btn-success" @click="edit">修改</button>
-      <button type="button" class="btn btn-success">删除</button>
+      <button type="button" class="btn btn-success" @click="deleteById">删除</button>
     </div>
     <table id="a1" class="col-md-12">
     </table>
@@ -33,6 +33,7 @@
   import 'ztree/js/jquery.ztree.core';
   import axios from '@/libs/axios_sys';
   import global_config from "@/libs/global_config";
+  import qs from 'qs'
 
 
 export default {
@@ -52,10 +53,10 @@ export default {
           // $("#a1").bootstrapTable('getSelections') 获取选择行
           //this.$router.push({ path: '/multilevel/level_2_1/sys_add'});
           this.$router.push( { name: 'add_sysDictionary',
-            params: {
+          /*  params: {
               parentName: this.parentName,
               parentId: this.parentId+""
-            }
+            }*/
           });
         },
         edit () {
@@ -69,6 +70,24 @@ export default {
             }
           });
 
+        },
+        deleteById (){
+          const check = $("#a1").bootstrapTable('getSelections');
+          if(check.length == 0){
+            alert('请先选中一个');
+          }
+          let ids = [];
+          check.forEach((value,index) => {
+            ids.push(value.id);
+          });
+
+          axios.get('sysDictionary/delete',{params: {ids: ids}})
+        .then(respon => {
+              const data = respon.data;
+              if(data.code === 1){
+                alert('删除成功');
+              }
+            });
         },
         zTreeOnClick(event, treeId, treeNode){
           this.parentId = treeNode.id;

@@ -3,16 +3,9 @@
     <form id="add" class="form-horizontal" @submit.prevent="submit">
        <input type="hidden" v-model="id" name="id">
       <div class="form-group col-md-12" align="center">
-        <label class="col-md-2 control-label">父参数名称：</label>
-        <div class="col-md-6">
-          <input type="text" class="form-control"   placeholder="" v-model="parentName" disabled
-                 name="paentName"/>
-        </div>
-      </div>
-      <div class="form-group col-md-12" align="center">
         <label class="col-md-2 control-label">参数姓名：</label>
         <div class="col-md-6">
-          <input type="text" class="form-control"   placeholder="输入参数名称" v-model="name" v-validate="'required|max:11'"
+          <input type="text" class="form-control"  id="name"  placeholder="输入参数名称" v-model="name" v-validate="'required|max:11'"
                  name="name"/>
         </div>
         <label class="col-md-4 label_error">{{ errors.first('name') }}</label>
@@ -20,7 +13,7 @@
       <div class="form-group col-md-12" align="center">
         <label class="col-md-2 control-label">参数值：</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" placeholder="输入参数值" v-model="value" v-validate="'required|max:11'"
+          <input type="text" class="form-control" id="value" placeholder="输入参数值" v-model="value" v-validate="'required|max:11'"
                  name="value"/>
         </div>
         <label class="col-md-4 label_error">{{ errors.first('value') }}</label>
@@ -28,7 +21,7 @@
       <div class="form-group col-md-12" align="center">
         <label class="col-md-2 control-label">唯一标识：</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" placeholder="唯一标识" v-model="uniqueSign" v-validate="'required|max:11'"
+          <input type="text" class="form-control" placeholder="唯一标识" id="uniqueSign" v-model="uniqueSign" v-validate="'required|max:11'"
                  name="uniqueSign"/>
         </div>
         <label class="col-md-4 label_error">{{ errors.first('uniqueSign') }}</label>
@@ -36,7 +29,7 @@
       <div class="form-group col-md-12" align="center">
         <label class="col-md-2 control-label">排序：</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" placeholder="输入参数值" v-model="sort" v-validate="'numeric'"
+          <input type="text" class="form-control" id="sort" placeholder="输入参数值" v-model="sort" v-validate="'numeric'"
                  name="sort"/>
         </div>
         <label class="col-md-4 label_error">{{ errors.first('sort') }}</label>
@@ -54,8 +47,8 @@
   import VeeValidate from 'vee-validate';
   import zh_CN from 'vee-validate/dist/locale/zh_CN'
   import VueI18n from 'vue-i18n';
-  import qs from 'qs';
-  import { mapMutations } from 'vuex'
+  import { mapMutations } from 'vuex';
+  import form_show from '@/libs/from_show';
 
   Vue.use(VueI18n);
   const i18n = new VueI18n({
@@ -71,12 +64,19 @@
 export default {
   name: "edit_sysDictionary",
   mounted () {
-    this.parentId = this.$route.params.parentId;
-    this.parentName = this.$route.params.parentName;
+    this.id = this.$route.params.id;
+    axios.get(`sysDictionary/findDetail/${this.id}`)
+      .then(response => {
+        const data  = response.data;
+        if(data.code === 1){
+          form_show.setData(data.data,this);
+        }
+      });
+
   },
     data () {
       return {
-        parentId: null,
+        id: null,
         parentName: '',
         name: '',
         value: '',
@@ -89,6 +89,7 @@ export default {
         'closeTag'
     ]),
       submit () {
+
         this.$validator.validateAll().then((result) => {
            if(!result){
              const name = this.errors.items[0].field;
@@ -96,16 +97,18 @@ export default {
              $('input[name='+name+']')[0].focus();
              return;
            }
-
-          axios.post('sysDictionary/add',qs.stringify(this.$data))
+          axios.post('sysDictionary/update',this.$data)
             .then(response => {
              const data = response.data;
               if(data.code === 1){
                 console.log(this);
                 alert('提交成功');
                 this.closeTag({
-                  name: 'sys_add'
-                })
+                  name: 'edit_sysDictionary',
+                  params: {
+                    id: this.$route.params.id
+                  }
+                });
              }else{
                 alert('提交失败');
               }

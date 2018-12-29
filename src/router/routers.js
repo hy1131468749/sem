@@ -17,6 +17,16 @@ import parentView from '@/components/parent-view'
  */
 export default [
   {
+    path: '/login',
+    name: 'login',
+    meta: {
+      title: 'Login - 登录',
+      hideInMenu: true
+    },
+    component: () => import('@/view/login/login.vue')
+  },
+
+  {
     path: '/',
     name: '_home',
     redirect: '/home',
@@ -57,14 +67,16 @@ export default [
     },
     component: Main,
     children: [
+      // 参数管理
+
       {
-        path: 'level_2_1',
-        name: 'level_2_1',
+        path: 'sysDictionary',
+        name: 'sysDictionary',
         meta: {
           icon: 'md-funnel',
-          title: '二级-1'
+          title: '参数字典'
         },
-       component: () => import('@/view/multilevel/level-2-1.vue'),
+       component: () => import('@/view/multilevel/sysDictionary/sysDictionary.vue'),
       },{
         path: 'add_sysDictionary',
         name: 'add_sysDictionary',
@@ -75,7 +87,7 @@ export default [
           hideInMenu: true
           // beforeCloseName: 'before_close_normal'
         },
-        component: () => import ('@/view/multilevel/level-2-2/add_sysDictionary')
+        component: () => import ('@/view/multilevel/sysDictionary/add_sysDictionary')
       },
       {
         path: 'edit_sysDictionary',
@@ -87,8 +99,77 @@ export default [
           hideInMenu: true
           // beforeCloseName: 'before_close_normal'
         },
-        component: () => import ('@/view/multilevel/level-2-2/edit_sysDictionary')
+        component: () => import ('@/view/multilevel/sysDictionary/edit_sysDictionary')
       },
+      // 部门管理
+      {
+        path: 'dep',
+        name: 'dep',
+        meta: {
+          icon: 'md-funnel',
+          title: '部门字典'
+        },
+        component: () => import('@/view/multilevel/department/dep.vue'),
+      },{
+        path: 'add_dep',
+        name: 'add_dep',
+        meta: {
+          icon: 'md-funnel',
+          title: '部门新增',
+          notCache: true,
+          hideInMenu: true
+          // beforeCloseName: 'before_close_normal'
+        },
+        component: () => import ('@/view/multilevel/department/add_dep')
+      },
+      {
+        path: 'edit_dep',
+        name: 'edit_dep',
+        meta: {
+          icon: 'md-funnel',
+          title: '字典修改',
+          notCache: true,
+          hideInMenu: true
+          // beforeCloseName: 'before_close_normal'
+        },
+        component: () => import ('@/view/multilevel/department/edit_dep')
+      },
+
+      // 用户管理
+      {
+        path: 'user',
+        name: 'user',
+        meta: {
+          icon: 'md-funnel',
+          title: '用户管理'
+        },
+        component: () => import('@/view/multilevel/user/user.vue'),
+      },{
+        path: 'add_user',
+        name: 'add_user',
+        meta: {
+          icon: 'md-funnel',
+          title: '用户新增',
+          notCache: true,
+          hideInMenu: true
+          // beforeCloseName: 'before_close_normal'
+        },
+        component: () => import ('@/view/multilevel/user/add_user')
+      },
+      {
+        path: 'edit_user',
+        name: 'edit_user',
+        meta: {
+          icon: 'md-funnel',
+          title: '用户修改',
+          notCache: true,
+          hideInMenu: true
+          // beforeCloseName: 'before_close_normal'
+        },
+        component: () => import ('@/view/multilevel/user/edit_user')
+      },
+
+
 
       {
         path: 'level_2_2',
@@ -108,7 +189,7 @@ export default [
               icon: 'md-funnel',
               title: '三级'
             },
-            component: () => import('@/view/multilevel/level-2-2/level-3-1.vue')
+            component: () => import('@/view/multilevel/sysDictionary/level-3-1.vue')
           }
         ]
       },
@@ -138,13 +219,5 @@ export default [
       hideInMenu: true
     },
     component: () => import('@/view/error-page/500.vue')
-  },
-  {
-    path: '*',
-    name: 'error_404',
-    meta: {
-      hideInMenu: true
-    },
-    component: () => import('@/view/error-page/404.vue')
   }
 ]

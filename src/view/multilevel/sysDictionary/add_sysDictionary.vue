@@ -69,7 +69,7 @@
     }
   });
   export default {
-    name: "edit_sysDictionary",
+    name: "add_sysDictionary",
     mounted () {
       this.parentId = this.$route.params.parentId;
       this.parentName = this.$route.params.parentName;
@@ -97,15 +97,19 @@
             return;
           }
 
-          axios.post('sysDictionary/add',qs.stringify(this.$data))
+          axios.post('sysDictionary/add',this.$data)
             .then(response => {
               const data = response.data;
               if(data.code === 1){
                 console.log(this);
                 alert('提交成功');
                 this.closeTag({
-                  name: 'sys_add'
-                })
+                  name: 'add_sysDictionary',
+                  params: {
+                    parentId: this.$route.params.parentId,
+                    parentName: this.$route.params.parentName
+                  }
+                });
               }else{
                 alert('提交失败');
               }
