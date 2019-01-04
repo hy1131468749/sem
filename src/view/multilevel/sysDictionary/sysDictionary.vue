@@ -33,7 +33,7 @@
   import 'ztree/js/jquery.ztree.core';
   import axios from '@/libs/axios_sys';
   import global_config from "@/libs/global_config";
-  import qs from 'qs'
+  import Cookies from 'js-cookie'
 
 
 export default {
@@ -80,7 +80,6 @@ export default {
           check.forEach((value,index) => {
             ids.push(value.id);
           });
-
           axios.get('sysDictionary/delete',{params: {ids: ids}})
         .then(respon => {
               const data = respon.data;

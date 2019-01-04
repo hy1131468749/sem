@@ -5,7 +5,7 @@
     <div class="form-group col-md-12" align="center">
       <label class="col-md-2 control-label">用户：</label>
       <div class="col-md-6">
-        <input type="text" class="form-control"   placeholder="输入用户" v-model="userName" v-validate="'required|max:11'"
+        <input type="text" class="form-control"   placeholder="输入用户" v-model="username" v-validate="'required|max:11'"
                name="userName"/>
       </div>
       <label class="col-md-4 label_error">{{ errors.first('userName') }}</label>
@@ -33,7 +33,7 @@
   import VeeValidate from 'vee-validate';
   import zh_CN from 'vee-validate/dist/locale/zh_CN';
   import VueI18n from 'vue-i18n';
-  import axios from '@libs/axios_sys'
+  import axios from '@/libs/axios_sys'
   Vue.use(VueI18n);
   const i18n = new VueI18n({
     locale: 'zh_CN',
@@ -49,7 +49,7 @@
         name: 'login',
         data () {
           return {
-            userName: '',
+            username: '',
             password: ''
           }
         },
@@ -63,7 +63,15 @@
                   return;
                 }
               });
-              axios.post('/login')
+              axios.post('/test/r1',this.$data)
+                .then(response => {
+                 /* const data = response.data;
+                  if(data.code == 1){
+                    this.$router.push({name:"home"})
+                  }*/
+                  console.log('9081:');
+                  console.log(response);
+                });
           }
         }
 

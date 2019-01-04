@@ -39,6 +39,11 @@ Vue.prototype.$config = config
 // importDirective(Vue)
 
 /* eslint-disable no-new */
+$.ajaxSetup({
+  xhrFields: {
+    withCredentials: true
+  }
+});
 new Vue({
   el: '#app',
   $,
